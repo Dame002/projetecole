@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 // if (!isset($_SESSION['admin'])) {
 //     header('Location: ../login.php');
 //     exit();
@@ -62,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt->execute()) {
             echo "Cours ajouté avec succès !";
+            header("Location: list.php?success=Cours ajoute avec succès.");
         } else {
             echo "Erreur lors de l'ajout du cours.";
         }
@@ -85,30 +86,30 @@ $formations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Daarul Alam</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="add.php">Cours</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../formations/add.php">Formations</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../create_admin.php">Utilisateurs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../index.php">Daarul Alam</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="list.php">Cours</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../formations/list.php">Formations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../create_admin.php">Utilisateurs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
     <header>
         <h1>Ajouter un Cours</h1>

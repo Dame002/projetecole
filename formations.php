@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>À Propos</title>
+  <title>Cours</title>
   <link
     rel="shortcut icon"
     href="Images/daroul-alam.png"
@@ -21,44 +21,29 @@
     <div>
       <ul id="navbar">
         <li><a href="accueil.php">Accueil</a></li>
-        <li><a href="cours.php">Cours</a></li>
-        <li><a href="formations.php">Formations</a></li>
-        <li><a class="active" href="propos.php">A Propos</a></li>
+        <li><a  href="cours.php">Cours</a></li>
+        <li><a class="active" href="formations.php">Formations</a></li>
+        <li><a href="propos.php">A Propos</a></li>
         <li><a href="contact.php">Contact</a></li>
         <li><a href="blog.php">Blog</a></li>
       </ul>
     </div>
     <div class="buttons">
       <a href="login/index.php"> <button class="sign-up">Se connecter</button></a>
-      <!-- <a href=""> <button class="log-in">S'inscrire</button></a> -->
+      <!-- <a href=""><button class="log-in">S'inscrire</button></a> -->
     </div>
   </section>
-
   <section id="page-header" class="blog-header">
-    <h2>#NotreMission</h2>
-    <p>Découvrez l'Essence de Daarul Alam!</p>
-  </section>
-  <section id="about-head" class="section-p1">
-    <img src="IMG ABOUT/a6.jpg" alt="" />
-    <div>
-      <h2>Qui sommes-nous ?</h2>
-      <p>
-      Daarul Alam est bien plus qu’une plateforme d’apprentissage, c’est un chemin vers la lumière, où la quête du savoir islamique devient une expérience spirituelle transformatrice. À travers nos cours en ligne et notre bibliothèque numérique, nous vous offrons des ressources pour nourrir votre foi, éclairer votre cœur et vous rapprocher de votre Créateur. Chaque enseignement a le pouvoir de changer une vie. Rejoignez-nous dans cette aventure sacrée vers la connaissance et la paix intérieure.
-      </p>
-
-      <abbr title="">Plongez dans l'univers exclusif de Daarul Alam : Un Voyage Spirituel à travers le Savoir Islamique.</abbr>
-      <br /><br />
-
-      <marquee bgcolor="#ccc" loop="-1" scrollamount="5" width="100%">Plongez dans l'univers exclusif de Daarul Alam : Un Voyage Spirituel à travers le Savoir Islamique.</marquee>
-    </div>
+    <h2>#ÉduqueTonÂme </h2>
+    <p>Chaque leçon est un pas vers la lumière !</p>
   </section>
 
-  <section id="about-app" class="section-p1">
-    <h1>Téléchargez l' <a href="#">app</a></h1>
-    <div class="video">
-      <video autoplay muted loop src="IMG ABOUT/1.mp4"></video>
-    </div>
-  </section>
+ <br><br>
+ 
+
+<br><br><br><br>
+
+
 
   <section id="newsletters" class="section-p1 section-m1">
     <div class="newstext">
@@ -132,7 +117,7 @@
     </div>
   </footer>
 
-  <script src="darul."></script>
+  <script src="darul.js"></script>
 </body>
 </body>
 

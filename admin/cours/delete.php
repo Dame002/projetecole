@@ -1,9 +1,9 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin'])) {
-    header('Location: ../login.php');
-    exit();
-}
+// session_start();
+// if (!isset($_SESSION['admin'])) {
+//     header('Location: ../login.php');
+//     exit();
+// }
 // Inclure la configuration et la connexion à la base de données
 include '../../config.php';
 
@@ -33,7 +33,7 @@ try {
             // Exécuter la requête
             if ($stmt->execute()) {
                 // Rediriger vers la liste des cours avec un message de succès
-                header("Location: cours.php?success=Cours supprimé avec succès.");
+                header("Location: list.php?success=Cours supprimé avec succès.");
                 exit();
             } else {
                 echo "Erreur lors de la suppression du cours.";

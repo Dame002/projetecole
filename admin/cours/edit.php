@@ -1,22 +1,7 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin'])) {
-    header('Location: ../login.php');
-    exit();
-}
 include '../../config.php';
 
-// Vérification de l'accès admin
-if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
-    header("Location: ../login.php");
-    exit;
-}
-
-// Vérifier si l'ID du cours est passé en GET
-if (!isset($_GET['id']) || empty($_GET['id'])) {
-    die("ID du cours manquant.");
-}
-
+// Récupérer l'ID du cours
 $id = $_GET['id'];
 
 // Récupérer le cours à modifier
@@ -24,37 +9,56 @@ $stmt = $pdo->prepare("SELECT * FROM cours WHERE id = :id");
 $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 $stmt->execute();
 $cour = $stmt->fetch(PDO::FETCH_ASSOC);
+$stmt = $pdo->prepare("SELECT id, titre FROM formations");
+$stmt->execute();
+$formations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if (!$cour) {
     die("Cours introuvable.");
 }
 
-// Récupérer les formations pour le select
-$stmt = $pdo->query("SELECT * FROM formations");
-$formations = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Si le formulaire est soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titre = $_POST['titre'];
     $description = $_POST['description'];
     $url = $_POST['url'];
     $formation_id = $_POST['formation_id'];
 
-    // Gestion de l'upload d'image (facultatif)
-    if (!empty($_FILES['image']['name'])) {
-        $image = basename($_FILES['image']['name']);
-        $target_dir = "../../uploads/";
-        $target_file = $target_dir . $image;
+    // Récupérer l'ancienne image
+    $imagePath = $cour['image'] ?? ''; 
 
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
-            $imagePath = $image;
+    // Vérifier si une nouvelle image a été envoyée
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        $image = $_FILES['image'];
+
+        // Définir le dossier d'upload
+        $uploadDir = "uploads/";
+        
+        // Vérifier le type et la taille de l'image
+        $validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (in_array($image['type'], $validTypes) && $image['size'] <= 2 * 1024 * 1024) {
+            // Générer un nom unique
+            $imageName = uniqid() . "_" . basename($image['name']);
+            $uploadPath = $uploadDir . $imageName;
+
+            // Supprimer l'ancienne image si elle existe
+            if (!empty($imagePath) && file_exists($uploadDir . $imagePath)) {
+                unlink($uploadDir . $imagePath);
+            }
+
+            // Déplacer la nouvelle image et mettre à jour le chemin
+            if (move_uploaded_file($image['tmp_name'], $uploadPath)) {
+                $imagePath = $imageName;
+            } else {
+                die("Erreur lors du téléchargement de l'image.");
+            }
         } else {
-            echo "Erreur lors de l'upload de l'image.";
-            exit;
+            die("Image invalide. Vérifiez le format et la taille.");
         }
-    } else {
-        $imagePath = $cour['image']; // Garder l'ancienne image si aucun fichier n'est uploadé
     }
+
+    // Ici, tu peux insérer ou mettre à jour la base de données avec $imagePath
+
+
 
     // Mise à jour du cours
     $stmt = $pdo->prepare("UPDATE cours SET titre = :titre, description = :description, image = :image, url = :url, formation_id = :formation_id WHERE id = :id");
@@ -67,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
         echo "Cours modifié avec succès !";
-        header("Location: cours.php?success=Modification réussie");
+        header("Location: list.php?success=Modification réussie");
         exit();
     } else {
         echo "Erreur lors de la modification du cours.";
@@ -83,10 +87,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier le Cours</title>
     <link rel="stylesheet" href="../../assets/admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body>
-
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../index.php">Daarul Alam</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="list.php">Cours</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../formations/list.php">Formations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../create_admin.php">Utilisateurs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
     <header>
         <h1>Modifier le Cours</h1>
     </header>
@@ -118,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <input type="submit" value="Modifier le Cours">
     </form>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
 </html>
