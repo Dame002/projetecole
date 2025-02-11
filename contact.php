@@ -31,7 +31,7 @@
         </ul>
       </div>
       <div class="buttons">
-       <a href="responsive-login-and-registration-form/index.php"> <button class="sign-up">Se connecter</button></a>
+       <a href="login/index.php"> <button class="sign-up">Se connecter</button></a>
        <!-- <a href=""> <button class="log-in">S'inscrire</button></a> -->
       </div>
     </section>
