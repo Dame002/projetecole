@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt->execute()) {
             $message = "✅ Formation ajoutée avec succès !";
-            header("Location: formations.php?success=1");
+            header("Location: list.php?success=1");
             exit();
         } else {
             $message = "❌ Erreur lors de l'ajout de la formation.";

@@ -1,17 +1,17 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin'])) {
-    header('Location: ../login.php');
-    exit();
-}
+// session_start();
+// if (!isset($_SESSION['admin'])) {
+//     header('Location: ../login.php');
+//     exit();
+// }
 include '../../config.php';
 
 
 // Vérification de l'accès admin
-if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
-    header("Location: ../login.php");
-    exit;
-}
+// if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
+//     header("Location: ../login.php");
+//     exit;
+// }
 
 // Récupération des formations avec PDO
 try {
