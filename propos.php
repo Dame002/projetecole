@@ -17,10 +17,10 @@
 
 <body>
   <section id="header">
-    <a href="accueil.php"><img src="Images/logo.png" class="logo" alt="Logo" /></a>
+    <a href="index.php"><img src="Images/logo.png" class="logo" alt="Logo" /></a>
     <div>
       <ul id="navbar">
-        <li><a href="accueil.php">Accueil</a></li>
+        <li><a href="index.php">Accueil</a></li>
         <li><a href="cours.php">Cours</a></li>
         <li><a href="formations.php">Formations</a></li>
         <li><a class="active" href="propos.php">A Propos</a></li>
