@@ -51,6 +51,8 @@ try {
   </section>
 
   <br><br>
+  <div id="titre"><h1> Catalogue des cours</h1> </div>
+  <br>
   <section class="courses-section">
     <button class="btn-prev">‹</button>
     <div class="carousel-container">

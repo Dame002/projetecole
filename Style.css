@@ -382,6 +382,10 @@ button .white {
   
 }
 /* Cours Page */
+#titre{
+  color: blue;
+  text-align: center ;
+}
 /* Section principale */
 .courses-section {
   display: flex;

@@ -2,6 +2,7 @@
 // session_start();
 session_start();
 
+
 require '../config.php';
 try {
   $stmt = $pdo->query("SELECT * FROM `cours`");
