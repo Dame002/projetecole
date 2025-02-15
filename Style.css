@@ -3,7 +3,7 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   font-family: "Spartan", sans-serif;
 }
 
@@ -30,6 +30,9 @@ button.normal {
 #page-header h2,
 #page-header p {
   color: #fff;
+}
+#page-header h2{
+  margin-bottom: 10px;
 }
 
 .section-p1 {
@@ -394,6 +397,76 @@ button .white {
   position: relative;
   width: 100%;
   margin: auto;
+}
+/* Barre de recherche */
+#search {
+  padding: 10px;
+  margin-top: 5px;
+  width: 30%;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  text-align: center;
+  
+}
+header {
+  /* background-image: url("Images/b19.jpg"); */
+  padding: 10px 15px; /* Plus de padding pour un bon centrage */
+  font-size: 24px;
+  font-weight: bold;
+  /* width: 100%; */
+  /* height: 30vh; */
+  background-size: cover;
+  text-transform: uppercase;
+  /* border-bottom: 2px solid white; */
+  display: flex;
+  flex-direction: column;
+  color: white;
+  align-items: center;
+  justify-content: center; /* Centre verticalement */
+  margin-top: 10px;
+}
+/* Section auteurs */
+.auteurs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Carte auteur */
+.auteur {
+  background: blue;
+  border: 2px solid whitesmoke;
+  border-radius: 10px;
+  width: 200px;
+  margin: 15px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer; /* Affiche le curseur en forme de main */
+  transition: transform 0.2s ease-in-out;
+  color: white;
+  /* display: inline-block; */
+
+}
+
+.auteur:hover {
+  transform: scale(1.05);
+}
+
+/* Image des auteurs */
+.auteur img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid white;
+}
+
+/* Nom de l’auteur */
+.auteur p {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 /* Conteneur du carrousel */

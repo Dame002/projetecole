@@ -1,15 +1,3 @@
-<?php
-
-require 'config.php';
-try {
-  $stmt = $pdo->query("SELECT * FROM `cours`");
-  $cours = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-  die("Could not connect to the database $dbname :" . $e->getMessage());
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -24,7 +12,8 @@ try {
   <link
     rel="stylesheet"
     href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Style.css">
+  <script defer src="Javascript/script.js"></script>
 </head>
 
 <body>
@@ -32,13 +21,13 @@ try {
     <a href="index.php"><img src="Images/logo.png" class="logo" alt="Logo" /></a>
     <div>
       <ul id="navbar">
-      <li><a href="index.php">Accueil</a></li>
-          <li><a href="bibliotheque.php">Bibliothèque</a></li>
-          <!-- <li><a class="active"  href="cours.php">Cours</a></li> -->
-          <li><a href="formations.php">Formations</a></li>
-          <li><a href="propos.php">A Propos</a></li>
-          <li><a href="contact.php">Contact</a></li>
-          <li><a href="blog.php">Blog</a></li>
+        <li><a href="index.php">Accueil</a></li>
+        <li><a class="active" href="bibliotheque.php">Bibliothèque</a></li>
+        <!-- <li><a class="active" href="cours.php">Cours</a></li> -->
+        <li><a href="formations.php">Formations</a></li>
+        <li><a href="propos.php">A Propos</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <li><a href="blog.php">Blog</a></li>
       </ul>
     </div>
     <div class="buttons">
@@ -47,37 +36,63 @@ try {
     </div>
   </section>
   <section id="page-header" class="blog-header">
-    <h2>#ApprendrePlus</h2>
-    <p>Plonge dans l'enseignement, éclaire ton chemin!</p>
+    <h2>#SagessePartagée</h2>
+    <p>Découvre ceux qui transmettent la lumière du savoir.!</p>
+    <header>
+    <input type="text" id="search" placeholder="Rechercher un auteur...">
+    </header>
   </section>
 
-  <br><br>
-  <div id="titre"><h1> Catalogue des cours</h1> </div>
-  <br>
-  <section class="courses-section">
-    <button class="btn-prev">‹</button>
-    <div class="carousel-container">
-      <div class="carousel-wrapper">
-      <?php foreach ($cours as $cour): ?>
-
-        <div class="course-card">
-        <img src="../admin/cours/uploads/<?php echo $cour['image']; ?>" class="card-img-top" alt="Image du cours">
-        <h2><?php echo $cour['titre']; ?></h2>
-          <p class="description"><?php echo $cour['description']; ?></p>
-          <!-- <p class="price">100 DHS</p> -->
-          <button class="btn">Voir les détails</button>
-          <!-- <p class="popularity">Populaire</p>
-          <p class="students">9 étudiants</p> -->
+  <section class="auteurs" id="auteurs-list">
+        <div class="auteur" data-name="Maodo">
+            <img src="images/coran.jpg" alt="Maodo">
+            <p>Moado</p>
         </div>
-        <?php endforeach; ?>
-
-      </div>
-    </div>
-    <button class="btn-next">›</button>
-  </section>
-
-  <br><br><br><br>
-
+        <div class="auteur" data-name="Matar">
+            <img src="images/hadiths.jpg" alt="Matar">
+            <p>Matar</p>
+        </div>
+        <div class="auteur" data-name="Khadim">
+            <img src="images/prières.jpg" alt="Khadim">
+            <p>Khadim</p>
+        </div>
+        <div class="auteur" data-name="Ibrahima">
+            <img src="images/salat.jpg" alt="Ibrahima">
+            <p>Ibrahima</p>
+        </div>
+        <div class="auteur" data-name="Maodo">
+            <img src="images/coran.jpg" alt="Maodo">
+            <p>Moado</p>
+        </div>
+        <div class="auteur" data-name="Matar">
+            <img src="images/hadiths.jpg" alt="Matar">
+            <p>Matar</p>
+        </div>
+        <div class="auteur" data-name="Khadim">
+            <img src="images/prières.jpg" alt="Khadim">
+            <p>Khadim</p>
+        </div>
+        <div class="auteur" data-name="Ibrahima">
+            <img src="images/salat.jpg" alt="Auteur 4">
+            <p>Ibrahima</p>
+        </div>
+        <div class="auteur" data-name="Maodo">
+            <img src="images/coran.jpg" alt="Maodo">
+            <p>Moado</p>
+        </div>
+        <div class="auteur" data-name="Matar">
+            <img src="images/hadiths.jpg" alt="Matar">
+            <p>Matar</p>
+        </div>
+        <div class="auteur" data-name="Khadim">
+            <img src="images/prières.jpg" alt="Khadim">
+            <p>Khadim</p>
+        </div>
+        <div class="auteur" data-name="Ibrahima">
+            <img src="images/salat.jpg" alt="Auteur 4">
+            <p>Ibrahima</p>
+        </div>
+    </section>
 
 
   <section id="newsletters" class="section-p1 section-m1">
@@ -95,7 +110,7 @@ try {
   </section>
   <footer class="section-p1">
     <div class="col">
-      <img class="logo" src="Images/daroul.png" alt="" />
+      <img class="logo" src="Images/logo.png" alt="" />
       <h4>Contacts</h4>
       <p><strong>Adresse:</strong> Rue 14, lot Oumlil Hay Hass, CASABLANCA</p>
       <p><strong>Coordonnées:</strong>+212 780003847 /+221 77 793 89 69</p>
@@ -152,7 +167,7 @@ try {
     </div>
   </footer>
 
-  <script src="Javascript/darul.js"></script>
+ 
 </body>
 </body>
 

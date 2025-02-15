@@ -20,12 +20,13 @@
     <a href="index.php"><img src="Images/logo.png" class="logo" alt="Logo" /></a>
     <div>
       <ul id="navbar">
-        <li><a href="index.php">Accueil</a></li>
-        <li><a  href="cours.php">Cours</a></li>
-        <li><a class="active" href="formations.php">Formations</a></li>
-        <li><a href="propos.php">A Propos</a></li>
-        <li><a href="contact.php">Contact</a></li>
-        <li><a href="blog.php">Blog</a></li>
+      <li><a href="index.php">Accueil</a></li>
+          <li><a href="bibliotheque.php">Bibliothèque</a></li>
+          <!-- <li><a href="cours.php">Cours</a></li> -->
+          <li><a class="active"  href="formations.php">Formations</a></li>
+          <li><a href="propos.php">A Propos</a></li>
+          <li><a href="contact.php">Contact</a></li>
+          <li><a href="blog.php">Blog</a></li>
       </ul>
     </div>
     <div class="buttons">
@@ -60,7 +61,7 @@
   </section>
   <footer class="section-p1">
     <div class="col">
-      <img class="logo" src="Images/daroul.png" alt="" />
+      <img class="logo" src="Images/logo.png" alt="" />
       <h4>Contacts</h4>
       <p><strong>Adresse:</strong> Rue 14, lot Oumlil Hay Hass, CASABLANCA</p>
       <p><strong>Coordonnées:</strong>+212 780003847 /+221 77 793 89 69</p>
@@ -117,7 +118,7 @@
     </div>
   </footer>
 
-  <script src="darul.js"></script>
+  <script src="Javascript/darul.js"></script>
 </body>
 </body>
 

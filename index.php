@@ -23,7 +23,8 @@
       <div>
         <ul id="navbar">
           <li><a class="active" href="index.php">Accueil</a></li>
-          <li><a href="cours.php">Cours</a></li>
+          <li><a href="bibliotheque.php">Bibliothèque</a></li>
+          <!-- <li><a href="cours.php">Cours</a></li> -->
           <li><a href="formations.php">Formations</a></li>
           <li><a href="propos.php">A Propos</a></li>
           <li><a href="contact.php">Contact</a></li>
@@ -55,7 +56,7 @@
               connexion spirituelle.
             </p>
             <button class="btn">
-              <a href="#">Voir cours</a>
+              <a href="#">Voir formations</a>
             </button>
           </div>
         </div>
@@ -69,7 +70,7 @@
               débutants et révisions.
             </p>
             <button class="btn">
-              <a chref="#">Voir cours</a>
+              <a chref="#">Voir Formations</a>
             </button>
           </div>
         </div>
@@ -83,7 +84,7 @@
               comprenez leur impact sur la vie spirituelle et quotidienne.
             </p>
             <button class="btn">
-              <a href="#">Voir cours</a>
+              <a href="#">Voir Formations</a>
             </button>
           </div>
         </div>
@@ -175,6 +176,6 @@
       </div>
     </footer>
 
-    <script src="darul."></script>
+    <script src="Javascript/darul.js"></script>
   </body>
 </html>
