@@ -91,11 +91,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a class="nav-link" href="list.php">Formations</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../create_admin.php">Utilisateurs</a>
+            <a class="nav-link" href="../livres/list.php">livres</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            <a class="nav-link" href="../auteurs/list.php">Auteurs</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../create_admin.php">Administrateurs</a>
+          <!-- </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          </li> -->
         </ul>
       </div>
     </div>

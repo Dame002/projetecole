@@ -1,10 +1,22 @@
+<?php
+
+require 'config.php';
+try {
+  $stmt = $pdo->query("SELECT * FROM `auteurs`");
+  $auteurs = $stmt->fetchAll(PDO::FETCH_ASSOC); // Changement ici : $auteurs au lieu de $cours
+} catch (PDOException $e) {
+  die("Could not connect to the database $dbname :" . $e->getMessage());
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cours</title>
+  <title>Bibliothèque</title>
   <link
     rel="shortcut icon"
     href="Images/daroul-alam.png"
@@ -44,55 +56,15 @@
   </section>
 
   <section class="auteurs" id="auteurs-list">
-        <div class="auteur" data-name="Maodo">
-            <img src="images/coran.jpg" alt="Maodo">
-            <p>Moado</p>
-        </div>
-        <div class="auteur" data-name="Matar">
-            <img src="images/hadiths.jpg" alt="Matar">
-            <p>Matar</p>
-        </div>
-        <div class="auteur" data-name="Khadim">
-            <img src="images/prières.jpg" alt="Khadim">
-            <p>Khadim</p>
-        </div>
-        <div class="auteur" data-name="Ibrahima">
-            <img src="images/salat.jpg" alt="Ibrahima">
-            <p>Ibrahima</p>
-        </div>
-        <div class="auteur" data-name="Maodo">
-            <img src="images/coran.jpg" alt="Maodo">
-            <p>Moado</p>
-        </div>
-        <div class="auteur" data-name="Matar">
-            <img src="images/hadiths.jpg" alt="Matar">
-            <p>Matar</p>
-        </div>
-        <div class="auteur" data-name="Khadim">
-            <img src="images/prières.jpg" alt="Khadim">
-            <p>Khadim</p>
-        </div>
-        <div class="auteur" data-name="Ibrahima">
-            <img src="images/salat.jpg" alt="Auteur 4">
-            <p>Ibrahima</p>
-        </div>
-        <div class="auteur" data-name="Maodo">
-            <img src="images/coran.jpg" alt="Maodo">
-            <p>Moado</p>
-        </div>
-        <div class="auteur" data-name="Matar">
-            <img src="images/hadiths.jpg" alt="Matar">
-            <p>Matar</p>
-        </div>
-        <div class="auteur" data-name="Khadim">
-            <img src="images/prières.jpg" alt="Khadim">
-            <p>Khadim</p>
-        </div>
-        <div class="auteur" data-name="Ibrahima">
-            <img src="images/salat.jpg" alt="Auteur 4">
-            <p>Ibrahima</p>
-        </div>
-    </section>
+  <?php foreach ($auteurs as $auteur): ?>
+      <div class="auteur" data-name="<?php echo htmlspecialchars($auteur['nom']); ?>">
+          <a href="bibliotheque-show.php?auteur_id=<?php echo $auteur['id']; ?>">
+              <img src="../admin/auteurs/uploads/<?php echo htmlspecialchars($auteur['image']); ?>" alt="<?php echo htmlspecialchars($auteur['nom']); ?>">
+              <p><?php echo htmlspecialchars($auteur['nom']); ?></p>
+          </a>
+      </div>
+  <?php endforeach; ?>
+</section>
 
 
   <section id="newsletters" class="section-p1 section-m1">
@@ -163,12 +135,9 @@
         <script>
           document.getElementById("year").textContent = new Date().getFullYear();
         </script>
-
     </div>
   </footer>
 
- 
-</body>
 </body>
 
 </html>

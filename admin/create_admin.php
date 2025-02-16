@@ -62,11 +62,17 @@ if (isset($_GET['success'])) {
             <a class="nav-link" href="formations/add.php">Formations</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link"  aria-current="page" href="create_admin.php">Administrateurs</a></a>
+            <a class="nav-link" href="list.php">livres</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            <a class="nav-link" href="./auteurs/add.php">Auteurs</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link"  aria-current="page" href="create_admin.php">Administrateurs</a></a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          </li> -->
         </ul>
       </div>
     </div>

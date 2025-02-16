@@ -55,8 +55,9 @@
               Un guide pour maîtriser la récitation et approfondir votre
               connexion spirituelle.
             </p>
+            
             <button class="btn">
-              <a href="#">Voir formations</a>
+              <a href="#">Voir formation</a>
             </button>
           </div>
         </div>
@@ -70,7 +71,7 @@
               débutants et révisions.
             </p>
             <button class="btn">
-              <a chref="#">Voir Formations</a>
+              <a chref="#">Voir Formation</a>
             </button>
           </div>
         </div>
@@ -84,7 +85,7 @@
               comprenez leur impact sur la vie spirituelle et quotidienne.
             </p>
             <button class="btn">
-              <a href="#">Voir Formations</a>
+              <a href="#">Voir Formation</a>
             </button>
           </div>
         </div>
@@ -95,7 +96,7 @@
       <div class="overlay">
         <h3>Explorez davantage</h3>
         <p>Découvrez d'autres ressources pour approfondir vos connaissances religieuses.</p>
-        <button class="btn"><a href="#">Dècouvrir</a></button>
+        <button class="btn"><a href="bibliotheque.php">Dècouvrir</a></button>
       </div>
     </div>
 

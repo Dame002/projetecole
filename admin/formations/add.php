@@ -24,13 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindValue(':titre', $titre, PDO::PARAM_STR);
         $stmt->bindValue(':description', $description, PDO::PARAM_STR);
 
+       
         if ($stmt->execute()) {
-            $message = "✅ Formation ajoutée avec succès !";
-            header("Location: list.php?success=1");
-            exit();
-        } else {
-            $message = "❌ Erreur lors de l'ajout de la formation.";
-        }
+          echo "Formation ajouté avec succès !";
+          header("Location: list.php?success=Formation ajoutè avec succès.");
+      } else {
+          echo "Erreur lors de l'ajout de la formation.";
+      }
     } catch (PDOException $e) {
         $message = "❌ Erreur : " . $e->getMessage();
     }
@@ -64,11 +64,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a class="nav-link" href="list.php">Formations</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../create_admin.php">Utilisateurs</a>
+            <a class="nav-link" href="../livres/list.php">livres</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            <a class="nav-link" href="../auteurs/list.php">Auteurs</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../create_admin.php">Administrateurs</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          </li> -->
         </ul>
       </div>
     </div>

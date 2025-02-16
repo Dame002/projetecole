@@ -1,98 +1,86 @@
 <?php
 
 require 'config.php';
-try {
-  $stmt = $pdo->query("SELECT * FROM `cours`");
-  $cours = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-  die("Could not connect to the database $dbname :" . $e->getMessage());
+
+if (isset($_GET['auteur_id'])) {
+  $auteur_id = $_GET['auteur_id'];
+
+  try {
+    // Récupérer les informations de l'auteur
+    $stmt = $pdo->prepare("SELECT * FROM `auteurs` WHERE `id` = :id");
+    $stmt->execute(['id' => $auteur_id]);
+    $auteur = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Récupérer les livres de l'auteur
+    $stmt_livres = $pdo->prepare("SELECT * FROM `livres` WHERE `auteur_id` = :auteur_id");
+    $stmt_livres->execute(['auteur_id' => $auteur_id]);
+    $livres = $stmt_livres->fetchAll(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    die("Could not connect to the database $dbname :" . $e->getMessage());
+  }
+} else {
+  header('Location: bibliotheque.php');
+  exit();
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cours</title>
-  <link
-    rel="shortcut icon"
-    href="Images/daroul-alam.png"
-    type="image/x-icon" />
-  <link
-    rel="stylesheet"
-    href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+  <title>Livres de <?php echo htmlspecialchars($auteur['nom']); ?></title>
+  <link rel="shortcut icon" href="Images/daroul-alam.png" type="image/x-icon" />
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
   <section id="header">
     <a href="index.php"><img src="Images/logo.png" class="logo" alt="Logo" /></a>
     <div>
       <ul id="navbar">
-      <li><a href="index.php">Accueil</a></li>
-          <li><a href="bibliotheque.php">Bibliothèque</a></li>
-          <!-- <li><a class="active"  href="cours.php">Cours</a></li> -->
-          <li><a href="formations.php">Formations</a></li>
-          <li><a href="propos.php">A Propos</a></li>
-          <li><a href="contact.php">Contact</a></li>
-          <li><a href="blog.php">Blog</a></li>
+        <li><a href="index.php">Accueil</a></li>
+        <li><a href="bibliotheque.php">Bibliothèque</a></li>
+        <li><a href="formations.php">Formations</a></li>
+        <li><a href="propos.php">À Propos</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <li><a href="blog.php">Blog</a></li>
       </ul>
     </div>
     <div class="buttons">
       <a href="login/index.php"> <button class="sign-up">Se connecter</button></a>
-      <!-- <a href=""><button class="log-in">S'inscrire</button></a> -->
     </div>
   </section>
+
   <section id="page-header" class="blog-header">
-    <h2>#ApprendrePlus</h2>
-    <p>Plonge dans l'enseignement, éclaire ton chemin!</p>
+    <h2>Livres de <?php echo htmlspecialchars($auteur['nom']); ?></h2>
+    <p>Découvre les œuvres de cet auteur et enrichis tes connaissances !</p>
   </section>
 
-  <br><br>
-  <div id="titre"><h1> Catalogue des cours</h1> </div>
-  <br>
+  <div id="titre"><h1> Catalogue des livres</h1></div>
+
   <section class="courses-section">
     <button class="btn-prev">‹</button>
     <div class="carousel-container">
       <div class="carousel-wrapper">
-      <?php foreach ($cours as $cour): ?>
-
-        <div class="course-card">
-        <img src="../admin/cours/uploads/<?php echo $cour['image']; ?>" class="card-img-top" alt="Image du cours">
-        <h2><?php echo $cour['titre']; ?></h2>
-          <p class="description"><?php echo $cour['description']; ?></p>
-          <!-- <p class="price">100 DHS</p> -->
-          <button class="btn">Voir les détails</button>
-          <!-- <p class="popularity">Populaire</p>
-          <p class="students">9 étudiants</p> -->
-        </div>
-        <?php endforeach; ?>
-
+        <?php if ($livres): ?>
+          <?php foreach ($livres as $livre): ?>
+            <div class="course-card">
+              <h2><?php echo htmlspecialchars($livre['titre']); ?></h2>
+              <p class="description">Auteur : <?php echo htmlspecialchars($auteur['nom']); ?></p>
+              <a href="../admin/livres/uploads/<?php echo htmlspecialchars($livre['pdf']); ?>" target="_blank">
+                <button class="btn">Télécharger le PDF</button>
+              </a>
+            </div>
+          <?php endforeach; ?>
+        <?php else: ?>
+          <p>Aucun livre disponible pour cet auteur.</p>
+        <?php endif; ?>
       </div>
     </div>
     <button class="btn-next">›</button>
   </section>
 
-  <br><br><br><br>
-
-
-
-  <section id="newsletters" class="section-p1 section-m1">
-    <div class="newstext">
-      <h4>Inscrivez-vous Aux Newsletters</h4>
-      <p>
-        Recevez des mises à jour par e-mail sur notre dernière boutique et nos
-        <span>offres spéciales</span>.
-      </p>
-    </div>
-    <div class="form">
-      <input type="text" placeholder="Votre adresse mail" />
-      <button class="normal">Inscrivez-vous</button>
-    </div>
-  </section>
   <footer class="section-p1">
     <div class="col">
       <img class="logo" src="Images/daroul.png" alt="" />
@@ -111,49 +99,15 @@ try {
         </div>
       </div>
     </div>
-    <div class="col">
-      <h4>À propos</h4>
-      <a href="Propos.html">À propos de nous</a>
-      <a href="#">Informations sur les formations</a>
-      <a href="#">Politique de confidentialité</a>
-      <a href="#">Termes et conditions</a>
-      <a href="contact.html">Contactez-nous</a>
-    </div>
-    <div class="col">
-      <h4>Mon compte</h4>
-      <a href="#">Se connecter</a>
-      <a href="Formations.html">Voir les formations</a>
-      <a href="#">Ma liste de lecture</a>
-      <a href="#">Suivre mes cours</a>
-      <a href="#">Aide</a>
-    </div>
-    <div class="col install">
-      <h4>Installer l'application</h4>
-      <p>Depuis l'App Store ou Google Play</p>
-      <div class="row">
-        <img src="IMG PAYER/app.jpg" alt="" />
-        <img src="IMG PAYER/play.jpg" alt="" />
-      </div>
-      <!-- <p>Modes de paiement sécurisées</p>
-          <img src="IMG PAYER/pay.png" alt="" /> -->
-    </div>
     <div class="copyright">
-      <p>
-        &copy; <span id="year"></span> Daarul Alam. Tous droits réservés. Fait par
-        <a
-          class="text-green"
-          href="https://www.linkedin.com/in/dame-seck-9ba393293/"
-          target="_blank"
-          rel="noopener">DAME SECK</a>
-        <script>
-          document.getElementById("year").textContent = new Date().getFullYear();
-        </script>
-
+      <p>&copy; <span id="year"></span> Daarul Alam. Tous droits réservés. Fait par
+        <a class="text-green" href="https://www.linkedin.com/in/dame-seck-9ba393293/" target="_blank" rel="noopener">DAME SECK</a>
+      </p>
+      <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+      </script>
     </div>
   </footer>
-
   <script src="Javascript/darul.js"></script>
 </body>
-</body>
-
 </html>

@@ -4,20 +4,15 @@
 //     header('Location: ../login.php');
 //     exit();
 // }
+
 include '../../config.php';
 
-// Récupération des cours avec le nom de la formation associée
-$sql = "SELECT cours.id, cours.titre, cours.description, formations.titre AS formation 
-        FROM cours 
-        JOIN formations ON cours.formation_id = formations.id";
-
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$cours = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$message = ""; // Valeur par défaut
-if (isset($_GET["success"])) {
-    $message = $_GET["success"];
+// Récupération des auteurs avec PDO
+try {
+    $stmt = $pdo->query("SELECT * FROM auteurs ORDER BY id DESC");
+    $auteurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Erreur SQL : " . $e->getMessage());
 }
 ?>
 
@@ -27,7 +22,7 @@ if (isset($_GET["success"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Cours</title>
+    <title>Liste des auteurs</title>
     <link rel="stylesheet" href="../../assets/admin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
@@ -41,12 +36,12 @@ if (isset($_GET["success"])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="list.php">Cours</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="../cours/list.php">Cours</a></li>
                 <li class="nav-item"><a class="nav-link" href="../formations/list.php">Formations</a></li>
                 <li class="nav-item">
             <a class="nav-link" href="../livres/list.php">livres</a>
           </li>
-                <li class="nav-item"><a class="nav-link" href="../auteurs/list.php">Auteurs</a></li>
+                <li class="nav-item"><a class="nav-link" href="list.php">Auteurs</a></li>
                 <li class="nav-item">
             <a class="nav-link" href="../create_admin.php">Administrateurs</a>
           </li>
@@ -60,10 +55,10 @@ if (isset($_GET["success"])) {
 
 <div class="container mt-4">
     <header class="mb-3">
-        <h1>Liste des Cours</h1>
+        <h1>Liste des auteurs</h1>
     </header>
 
-    <a href="add.php" class="btn btn-primary mb-3">Ajouter un cours</a>
+    <a href="add.php" class="btn btn-primary mb-3">Ajouter un auteur</a>
 
     <!-- Affichage des messages de succès ou d'erreur -->
     <?php if (isset($_GET['success'])) : ?>
@@ -76,21 +71,26 @@ if (isset($_GET["success"])) {
     <table class="table table-striped">
         <thead class="table-dark">
             <tr>
-                <th>Titre</th>
+                <th>Nom</th>
+                <th>Image</th>
                 <th>Description</th>
-                <th>Formation</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($cours as $cour): ?>
+            <?php foreach ($auteurs as $auteur): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($cour['titre']); ?></td>
-                    <td><?php echo substr(htmlspecialchars($cour['description']), 0, 50) . '...'; ?></td>
-                    <td><?php echo htmlspecialchars($cour['formation']); ?></td>
+                    <td><?php echo htmlspecialchars($auteur['nom']); ?></td>
                     <td>
-                        <a href="edit.php?id=<?php echo $cour['id']; ?>" class="btn btn-warning btn-sm">Modifier</a>
-                        <a href="delete.php?id=<?php echo $cour['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce cours ?');">Supprimer</a>
+    <img src="/admin/auteurs/uploads/<?php echo htmlspecialchars($auteur['image']); ?>" 
+         style="width: 50px; height: 50px; object-fit: cover;" 
+         alt="Image de l'auteur">
+</td>
+
+                    <td><?php echo substr(htmlspecialchars($auteur['description']), 0, 50) . '...'; ?></td>
+                    <td>
+                        <a href="edit.php?id=<?php echo $auteur['id']; ?>" class="btn btn-warning btn-sm">Modifier</a>
+                        <a href="delete.php?id=<?php echo $auteur['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet auteur ?');">Supprimer</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
