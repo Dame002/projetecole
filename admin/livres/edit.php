@@ -39,34 +39,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $imagePath = $livre['image'] ?? '';
 
     // Vérifier si une nouvelle image a été envoyée
+    // Vérifier si une nouvelle image a été envoyée
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-        $image = $_FILES['image'];
+      $image = $_FILES['image'];
 
-        // Définir le dossier d'upload
-        $uploadDir = "../../uploads/";
+      // Définir le dossier d'upload
+      $uploadDir = "uploads/";
+      
+      // Vérifier le type et la taille de l'image
+      $validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+      if (in_array($image['type'], $validTypes) && $image['size'] <= 2 * 1024 * 1024) {
+          // Générer un nom unique
+          $imageName = uniqid() . "_" . basename($image['name']);
+          $uploadPath = $uploadDir . $imageName;
 
-        // Vérifier le type et la taille de l'image
-        $validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        if (in_array($image['type'], $validTypes) && $image['size'] <= 2 * 1024 * 1024) {
-            // Générer un nom unique
-            $imageName = uniqid() . "_" . basename($image['name']);
-            $uploadPath = $uploadDir . $imageName;
+          // Supprimer l'ancienne image si elle existe
+          if (!empty($imagePath) && file_exists($uploadDir . $imagePath)) {
+              unlink($uploadDir . $imagePath);
+          }
 
-            // Supprimer l'ancienne image si elle existe
-            if (!empty($imagePath) && file_exists($uploadDir . $imagePath)) {
-                unlink($uploadDir . $imagePath);
-            }
-
-            // Déplacer la nouvelle image et mettre à jour le chemin
-            if (move_uploaded_file($image['tmp_name'], $uploadPath)) {
-                $imagePath = $imageName;
-            } else {
-                die("Erreur lors du téléchargement de l'image.");
-            }
-        } else {
-            die("Image invalide. Vérifiez le format et la taille.");
-        }
-    }
+          // Déplacer la nouvelle image et mettre à jour le chemin
+          if (move_uploaded_file($image['tmp_name'], $uploadPath)) {
+              $imagePath = $imageName;
+          } else {
+              die("Erreur lors du téléchargement de l'image.");
+          }
+      } else {
+          die("Image invalide. Vérifiez le format et la taille.");
+      }
+  }
 
     // Mise à jour du livre
     $stmt = $pdo->prepare("UPDATE livres SET titre = :titre, description = :description, image = :image, url = :url, auteur_id = :auteur_id WHERE id = :id");
@@ -160,7 +161,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Affichage de l'image actuelle si elle existe -->
     <label>Image actuelle :</label><br>
-    <img src="../../uploads/<?php echo !empty($livre['image']) && file_exists("../../uploads/" . $livre['image']) ? htmlspecialchars($livre['image']) : 'default-image.jpg'; ?>" width="150" alt="Image du livre"><br><br>
+    <img src="uploads/<?php echo !empty($livre['image']) && file_exists("../../uploads/" . $livre['image']) ? htmlspecialchars($livre['image']) : 'default-image.jpg'; ?>" width="150" alt="Image du livre"><br><br>
 
     <!-- URL -->
     <label for="url">URL :</label>

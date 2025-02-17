@@ -19,7 +19,7 @@ if (isset($_GET['auteur_id'])) {
     die("Could not connect to the database $dbname :" . $e->getMessage());
   }
 } else {
-  header('Location: bibliotheque.php');
+  header('Location: cours.php');
   exit();
 }
 
@@ -41,7 +41,7 @@ if (isset($_GET['auteur_id'])) {
       <ul id="navbar">
         <li><a href="index.php">Accueil</a></li>
         <li><a href="bibliotheque.php">Bibliothèque</a></li>
-        <li><a href="formations.php">Formations</a></li>
+        <li><a href="formatios.php">Formations</a></li>
         <li><a href="propos.php">À Propos</a></li>
         <li><a href="contact.php">Contact</a></li>
         <li><a href="blog.php">Blog</a></li>

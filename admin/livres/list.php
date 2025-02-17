@@ -97,7 +97,7 @@ if (isset($_GET["success"])) {
                         <td><?php echo htmlspecialchars($livre['auteur']); ?></td>
                         <td>
                             <?php 
-                            $imagePath = "../../uploads/" . $livre['image'];
+                            $imagePath = "uploads/" . $livre['image'];
                             // Vérifier si l'image existe et est dans le bon dossier
                             if (!empty($livre['image']) && file_exists($imagePath)): ?>
                                 <img src="<?php echo $imagePath; ?>" 

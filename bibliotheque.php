@@ -1,13 +1,12 @@
 <?php
-
 require 'config.php';
 try {
+  // Récupérer les auteurs depuis la base de données
   $stmt = $pdo->query("SELECT * FROM `auteurs`");
-  $auteurs = $stmt->fetchAll(PDO::FETCH_ASSOC); // Changement ici : $auteurs au lieu de $cours
+  $auteurs = $stmt->fetchAll(PDO::FETCH_ASSOC); // Récupérer tous les auteurs
 } catch (PDOException $e) {
   die("Could not connect to the database $dbname :" . $e->getMessage());
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -17,13 +16,8 @@ try {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bibliothèque</title>
-  <link
-    rel="shortcut icon"
-    href="Images/daroul-alam.png"
-    type="image/x-icon" />
-  <link
-    rel="stylesheet"
-    href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+  <link rel="shortcut icon" href="Images/daroul-alam.png" type="image/x-icon" />
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
   <link rel="stylesheet" href="Style.css">
   <script defer src="Javascript/script.js"></script>
 </head>
@@ -35,7 +29,6 @@ try {
       <ul id="navbar">
         <li><a href="index.php">Accueil</a></li>
         <li><a class="active" href="bibliotheque.php">Bibliothèque</a></li>
-        <!-- <li><a class="active" href="cours.php">Cours</a></li> -->
         <li><a href="formations.php">Formations</a></li>
         <li><a href="propos.php">A Propos</a></li>
         <li><a href="contact.php">Contact</a></li>
@@ -43,43 +36,45 @@ try {
       </ul>
     </div>
     <div class="buttons">
-      <a href="login/index.php"> <button class="sign-up">Se connecter</button></a>
-      <!-- <a href=""><button class="log-in">S'inscrire</button></a> -->
+      <a href="login/index.php"><button class="sign-up">Se connecter</button></a>
     </div>
   </section>
+
   <section id="page-header" class="blog-header">
     <h2>#SagessePartagée</h2>
-    <p>Découvre ceux qui transmettent la lumière du savoir.!</p>
+    <p>Découvre ceux qui transmettent la lumière du savoir.</p>
     <header>
-    <input type="text" id="search" placeholder="Rechercher un auteur...">
+      <input type="text" id="search" placeholder="Rechercher un auteur...">
     </header>
   </section>
 
   <section class="auteurs" id="auteurs-list">
-  <?php foreach ($auteurs as $auteur): ?>
-      <div class="auteur" data-name="<?php echo htmlspecialchars($auteur['nom']); ?>">
+    <?php if (!empty($auteurs)): ?>
+      <?php foreach ($auteurs as $auteur): ?>
+        <div class="auteur" data-name="<?php echo htmlspecialchars($auteur['nom']); ?> <?php echo htmlspecialchars($auteur['description']); ?>">
           <a href="bibliotheque-show.php?auteur_id=<?php echo $auteur['id']; ?>">
-              <img src="../admin/auteurs/uploads/<?php echo htmlspecialchars($auteur['image']); ?>" alt="<?php echo htmlspecialchars($auteur['nom']); ?>">
-              <p><?php echo htmlspecialchars($auteur['nom']); ?></p>
+            <img src="../admin/auteurs/uploads/<?php echo htmlspecialchars($auteur['image']); ?>" alt="<?php echo htmlspecialchars($auteur['nom']); ?>" <?php echo htmlspecialchars($auteur['description']); ?>">
+            <h4><?php echo htmlspecialchars($auteur['nom']); ?></h4>
+            <p><?php echo htmlspecialchars($auteur['description']); ?></p>
           </a>
-      </div>
-  <?php endforeach; ?>
-</section>
-
+        </div>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <p>Aucun auteur trouvé.</p>
+    <?php endif; ?>
+  </section>
 
   <section id="newsletters" class="section-p1 section-m1">
     <div class="newstext">
       <h4>Inscrivez-vous Aux Newsletters</h4>
-      <p>
-        Recevez des mises à jour par e-mail sur notre dernière boutique et nos
-        <span>offres spéciales</span>.
-      </p>
+      <p>Recevez des mises à jour par e-mail sur notre dernière boutique et nos <span>offres spéciales</span>.</p>
     </div>
     <div class="form">
       <input type="text" placeholder="Votre adresse mail" />
       <button class="normal">Inscrivez-vous</button>
     </div>
   </section>
+
   <footer class="section-p1">
     <div class="col">
       <img class="logo" src="Images/logo.png" alt="" />
@@ -121,20 +116,12 @@ try {
         <img src="IMG PAYER/app.jpg" alt="" />
         <img src="IMG PAYER/play.jpg" alt="" />
       </div>
-      <!-- <p>Modes de paiement sécurisées</p>
-          <img src="IMG PAYER/pay.png" alt="" /> -->
     </div>
     <div class="copyright">
-      <p>
-        &copy; <span id="year"></span> Daarul Alam. Tous droits réservés. Fait par
-        <a
-          class="text-green"
-          href="https://www.linkedin.com/in/dame-seck-9ba393293/"
-          target="_blank"
-          rel="noopener">DAME SECK</a>
-        <script>
-          document.getElementById("year").textContent = new Date().getFullYear();
-        </script>
+      <p>&copy; <span id="year"></span> Daarul Alam. Tous droits réservés. Fait par <a class="text-green" href="https://www.linkedin.com/in/dame-seck-9ba393293/" target="_blank" rel="noopener">DAME SECK</a></p>
+      <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+      </script>
     </div>
   </footer>
 

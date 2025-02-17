@@ -432,8 +432,7 @@ header {
   flex-wrap: wrap;
   justify-content: center;
   padding: 20px;
-  gap: 20px; 
-  
+  gap: 20px;
 }
 
 /* Carte auteur */
@@ -443,20 +442,75 @@ header {
   border-radius: 10px;
   width: 200px;
   margin: 15px;
-  padding: 20px; /* Un peu plus d'espace à l'intérieur */
+  padding: 20px;
   text-align: center;
-  cursor: pointer; /* Affiche le curseur en forme de main */
+  cursor: pointer;
   transition: transform 0.2s ease-in-out;
   color: white;
-  flex: 1 1 calc(20% - 30px); /* 20% de largeur par carte, ajusté avec un espacement de 30px */
-  max-width: 250px; /* Limite la largeur maximale à 250px */
-  
+  flex: 1 1 calc(20% - 30px);
+  max-width: 250px;
+  position: relative;
+}
+
+/* Coins blancs avec pseudo-éléments */
+.auteur::before,
+.auteur::after,
+.auteur::after,
+.auteur::before {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+/* Coin supérieur gauche */
+.auteur::before {
+  top: -7px;
+  left: -7px;
+}
+
+/* Coin supérieur droit */
+.auteur::after {
+  top: -7px;
+  right: -7px;
+}
+
+/* Coin inférieur gauche */
+.auteur::before {
+  bottom: -7px;
+  left: -7px;
+}
+
+/* Coin inférieur droit */
+.auteur::after {
+  bottom: -7px;
+  right: -7px;
 }
 
 /* Effet au survol */
 .auteur:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ajout d'une ombre douce au survol */
+}
+
+/* Liens et texte */
+.auteur a {
+  text-decoration: none;
+  color: white;
+}
+
+.auteur a:focus,
+.auteur a:active {
+  outline: none;
+  color: white;
+}
+
+.auteur p {
+  text-decoration: none;
+  color: white;
+  font-size: 13px;
+  margin-top: 10px;
 }
 
 /* Image des auteurs */
@@ -465,18 +519,18 @@ header {
   height: 100px;
   border-radius: 50%;
   border: 3px solid white;
-  margin-bottom: 10px; /* Un petit espacement sous l'image */
+  margin-bottom: 10px;
 }
 
 /* Texte sous l'image (nom de l'auteur) */
-.auteur p {
+.auteur h4 {
   font-size: 16px;
   font-weight: bold;
   margin-top: 10px;
-  color: white; 
-  text-decoration: none;
-  list-style: none;
+  color: white;
 }
+
+
 
 
 /* Nom de l’auteur */
@@ -569,40 +623,61 @@ header {
   gap: 20px;
   justify-content: center;
   padding: 20px;
+  max-width: 1200px; /* Ajuste la largeur max pour s'assurer d'avoir 4 cartes */
+  margin: auto;
 }
+
 .livre-card {
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  width: 300px;
-  text-align: center;
+  width: calc(25% - 20px);
+  min-width: 200px; /* Empêche les cartes d'être trop petites */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto; /* Ajuste la hauteur selon le contenu */
   padding: 15px;
+  text-align: center;
 }
+
 .livre-card img {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 5px;
+  height: 150px; /* Réduction de la hauteur */
+  object-fit: contain; /* Garde l'image bien cadrée sans étirement */
 }
+
 .livre-card h3 {
   margin: 10px 0;
   color: #333;
+  font-size: 16px; /* Ajuste la taille du titre */
 }
+
 .livre-card p {
   font-size: 14px;
   color: #555;
   margin-bottom: 10px;
+  max-height: 50px; /* Empêche le texte de trop s'étendre */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  text-align: center;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
 }
+
 .livre-card a {
   text-decoration: none;
-  background: #007bff;
+  background: blue;
   color: white;
-  padding: 10px 15px;
+  padding: 8px 12px; /* Légère réduction du bouton */
   border-radius: 5px;
   display: inline-block;
-  margin-top: 10px;
+  margin-top: 5px; /* Moins d’espace au-dessus du bouton */
 }
+
+
 
 /* .course-card .popularity {
   font-weight: bold;
@@ -783,7 +858,7 @@ header {
   color: #000;
 }
 #page-header {
-  background-image: url("Images/banner1.png");
+  background-image: url("IMG BANNIERE/b19.jpg");
   width: 100%;
   height: 40vh;
   background-size: cover;
@@ -932,8 +1007,9 @@ header {
   color: #c9cbce;
   z-index: -9;
 }
-* About Page */ #page-header.about-header {
-  background-image: url("IMG ABOUT/banner.png");
+/* About Page  */
+ #page-header.about-header {
+  background-image: url("IMG BANNIERE/b19.jpg");
 }
 
 #about-head {
@@ -950,8 +1026,13 @@ header {
   padding-left: 40px;
 }
 
-#about-app {
+#about-app h1{
   text-align: center;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+    font-size: 25px;
+    color: blue;
+    font-weight: 600px;
 }
 
 /* #about-app h1{

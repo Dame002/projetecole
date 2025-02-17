@@ -55,9 +55,9 @@
   </section>
 
   <section id="about-app" class="section-p1">
-    <h1>Téléchargez l' <a href="#">app</a></h1>
+    <h1>L'application mobile sera bientôt disponible!</h1>
     <div class="video">
-      <video autoplay muted loop src="IMG ABOUT/1.mp4"></video>
+      <video autoplay muted loop src="IMG ABOUT/2.mp4"></video>
     </div>
   </section>
 

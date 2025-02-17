@@ -51,7 +51,7 @@
         </p>
         <a href="#">CONTINUER LA LECTURE</a>
       </div>
-      <h1>15/06</h1>
+      <h1>15/02</h1>
     </div>
     <div class="blog-box">
       <div class="blog-img">
@@ -66,7 +66,7 @@
         </p>
         <a href="#">CONTINUER LA LECTURE</a>
       </div>
-      <h1>17/06</h1>
+      <h1>17/02</h1>
     </div>
     <div class="blog-box">
       <div class="blog-img">
@@ -79,7 +79,7 @@
         </p>
         <a href="#">CONTINUER LA LECTURE</a>
       </div>
-      <h1>19/06</h1>
+      <h1>19/02</h1>
     </div>
     <div class="blog-box">
       <div class="blog-img">
@@ -92,7 +92,7 @@
         </p>
         <a href="#">CONTINUER LA LECTURE</a>
       </div>
-      <h1>20/06</h1>
+      <h1>20/02</h1>
     </div>
     <div class="blog-box">
       <div class="blog-img">
@@ -105,7 +105,7 @@
         </p>
         <a href="#">CONTINUER LA LECTURE</a>
       </div>
-      <h1>22/06</h1>
+      <h1>22/02</h1>
     </div>
   </section>
 

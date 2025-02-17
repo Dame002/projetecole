@@ -99,17 +99,17 @@
           </p>
         </div>
         <div>
-          <img class="rounded-circle" src="IMG PERS/matar.jpg" alt="" />
+          <img class="rounded-circle" src="Images/matar.JPG" alt="" />
           <p>
-            <span>Mor Sene</span> Responsable marketing <br />Numéro:
+            <span>Matar Ndiaga Seck</span> Responsable marketing <br />Numéro:
             +212 000000000<br />
             E-mail: seckmatar9521@gmail.com
           </p>
         </div>
         <div>
-          <img class="rounded-circle" src="IMG PERS/unnamed.jpg" alt="" />
+          <img class="rounded-circle" src="Images/dame.jpg" alt="" />
           <p>
-            <span>Serigne Ibrahima</span> Responsable technique <br />Numéro: +212
+            <span>Dame Seck</span> Responsable technique <br />Numéro: +212
             000000000 <br />
             E-mail: dameseck207@gmail.com
           </p>
