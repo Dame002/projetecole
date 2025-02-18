@@ -32,7 +32,7 @@
         </ul>
       </div>
       <div class="buttons">
-       <a href="login/index.php"> <button class="sign-up">Se connecter</button> </a>
+       <a href="./login/index.php"> <button class="sign-up">Se connecter</button> </a>
         <!-- <a href="index.html"><button class="log-in">S'inscrire</button>  </a> -->
       </div>
     </section>
@@ -40,7 +40,7 @@
     <section id="hero">
       <div class="background-blur"></div>
       <h1>Plateforme dédiée à l'apprentissage de la religion islamique !</h1>
-      <button><a href="#">Inscrivez-vous !</a></button>
+      <button><a href="./login/index.php"> Rejoignez-nous!</a></button>
     </section>
     <br /><br />
     <section class="grid-section">
@@ -157,8 +157,8 @@
           <img src="IMG PAYER/app.jpg" alt="" />
           <img src="IMG PAYER/play.jpg" alt="" />
         </div>
-        <!-- <p>Modes de paiement sécurisées</p>
-        <img src="IMG PAYER/pay.png" alt="" /> -->
+        <p>Modes de paiement sécurisées</p>
+        <img src="IMG PAYER/pay.png" alt="" />
       </div>
       <div class="copyright">
         <p>

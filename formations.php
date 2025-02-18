@@ -132,8 +132,8 @@ try {
           <img src="IMG PAYER/app.jpg" alt="" />
           <img src="IMG PAYER/play.jpg" alt="" />
         </div>
-        <!-- <p>Modes de paiement sécurisées</p>
-        <img src="IMG PAYER/pay.png" alt="" /> -->
+        <p>Modes de paiement sécurisées</p>
+        <img src="IMG PAYER/pay.png" alt="" />
       </div>
       <div class="copyright">
         <p>

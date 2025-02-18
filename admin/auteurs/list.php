@@ -82,7 +82,8 @@ try {
                 <tr>
                     <td><?php echo htmlspecialchars($auteur['nom']); ?></td>
                     <td>
-    <img src="/admin/auteurs/uploads/<?php echo htmlspecialchars($auteur['image']); ?>" 
+                    <img src="uploads/<?php echo htmlspecialchars($auteur['image']); ?>"
+
          style="width: 50px; height: 50px; object-fit: cover;" 
          alt="Image de l'auteur">
 </td>

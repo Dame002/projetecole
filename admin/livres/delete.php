@@ -12,8 +12,8 @@ try {
     if (isset($_GET['id']) && !empty($_GET['id'])) {
         $id = $_GET['id'];
 
-        // Vérifier si le livre existe avant de supprimer
-        $checkSql = "SELECT image FROM livres WHERE id = :id";
+        // Vérifier si le livre existe avant de supprimer (récupère l'image et le PDF)
+        $checkSql = "SELECT image, pdf FROM livres WHERE id = :id";
         $checkStmt = $pdo->prepare($checkSql);
         $checkStmt->bindParam(':id', $id, PDO::PARAM_INT);
         $checkStmt->execute();
@@ -24,6 +24,11 @@ try {
             if (!empty($livre['image']) && file_exists('../../uploads/' . $livre['image'])) {
                 unlink('../../uploads/' . $livre['image']);
             }
+            
+            // Supprimer le PDF associé s'il existe
+            if (!empty($livre['pdf']) && file_exists('../../uploads/' . $livre['pdf'])) {
+                unlink('../../uploads/' . $livre['pdf']);
+            }
 
             // Préparer la requête pour supprimer le livre
             $sql = "DELETE FROM livres WHERE id = :id";
@@ -32,7 +37,6 @@ try {
 
             // Exécuter la requête
             if ($stmt->execute()) {
-                // Rediriger vers la liste des livres avec un message de succès
                 header("Location: list.php?success=Livre supprimé avec succès.");
                 exit();
             } else {

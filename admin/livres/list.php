@@ -6,8 +6,8 @@
 // }
 include '../../config.php';
 
-// Récupération des livres avec le nom de l'auteur associé
-$sql = "SELECT livres.id, livres.titre, livres.description, livres.image, auteurs.nom AS auteur 
+// Récupération des livres avec le nom de l'auteur associé, incluant la colonne pdf
+$sql = "SELECT livres.id, livres.titre, livres.description, livres.image, livres.pdf, auteurs.nom AS auteur 
         FROM livres 
         JOIN auteurs ON livres.auteur_id = auteurs.id";
 
@@ -48,7 +48,7 @@ if (isset($_GET["success"])) {
             <a class="nav-link" href="../formations/list.php">Formations</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="list.php">livres</a>
+            <a class="nav-link" href="list.php">Livres</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../auteurs/list.php">Auteurs</a>
@@ -62,62 +62,69 @@ if (isset($_GET["success"])) {
         </ul>
       </div>
     </div>
-  </nav>
+</nav>
 
-    <div class="container mt-4">
-        <header class="mb-3">
-            <h1>Liste des Livres</h1>
-        </header>
+<div class="container mt-4">
+    <header class="mb-3">
+        <h1>Liste des Livres</h1>
+    </header>
 
-        <a href="add.php" class="btn btn-primary mb-3">Ajouter un livre</a>
+    <a href="add.php" class="btn btn-primary mb-3">Ajouter un livre</a>
 
-        <!-- Affichage des messages de succès ou d'erreur -->
-        <?php if (isset($_GET['success'])) : ?>
-            <div class="alert alert-success"><?php echo htmlspecialchars($_GET['success']); ?></div>
-        <?php endif; ?>
-        <?php if (isset($_GET['error'])) : ?>
-            <div class="alert alert-danger"><?php echo htmlspecialchars($_GET['error']); ?></div>
-        <?php endif; ?>
+    <!-- Affichage des messages de succès ou d'erreur -->
+    <?php if (isset($_GET['success'])) : ?>
+        <div class="alert alert-success"><?php echo htmlspecialchars($_GET['success']); ?></div>
+    <?php endif; ?>
+    <?php if (isset($_GET['error'])) : ?>
+        <div class="alert alert-danger"><?php echo htmlspecialchars($_GET['error']); ?></div>
+    <?php endif; ?>
 
-        <table class="table table-striped">
-            <thead class="table-dark">
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Auteur</th>
+                <th>Image</th>
+                <th>PDF</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($livres as $livre): ?>
                 <tr>
-                    <th>Titre</th>
-                    <th>Description</th>
-                    <th>Auteur</th>
-                    <th>Image</th>
-                    <th>Actions</th>
+                    <td><?php echo htmlspecialchars($livre['titre']); ?></td>
+                    <td><?php echo substr(htmlspecialchars($livre['description']), 0, 50) . '...'; ?></td>
+                    <td><?php echo htmlspecialchars($livre['auteur']); ?></td>
+                    <td>
+                        <?php 
+                        $imagePath = "uploads/" . $livre['image'];
+                        if (!empty($livre['image']) && file_exists($imagePath)): ?>
+                            <img src="<?php echo $imagePath; ?>" style="width: 50px; height: 50px; object-fit: cover;" alt="Image du livre">
+                        <?php else: ?>
+                            <img src="../../uploads/default-image.jpg" width="100" alt="Image par défaut">
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php 
+                        $pdfPath = "uploads/" . $livre['pdf'];
+                        if (!empty($livre['pdf']) && file_exists($pdfPath)): ?>
+                            <a href="<?php echo $pdfPath; ?>" target="_blank" class="btn btn-info btn-sm">Voir PDF</a>
+                        <?php else: ?>
+                            <span>Aucun PDF</span>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <a href="edit.php?id=<?php echo $livre['id']; ?>" class="btn btn-warning btn-sm">Modifier</a>
+                        <a href="delete.php?id=<?php echo $livre['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce livre ?');">Supprimer</a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($livres as $livre): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($livre['titre']); ?></td>
-                        <td><?php echo substr(htmlspecialchars($livre['description']), 0, 50) . '...'; ?></td>
-                        <td><?php echo htmlspecialchars($livre['auteur']); ?></td>
-                        <td>
-                            <?php 
-                            $imagePath = "uploads/" . $livre['image'];
-                            // Vérifier si l'image existe et est dans le bon dossier
-                            if (!empty($livre['image']) && file_exists($imagePath)): ?>
-                                <img src="<?php echo $imagePath; ?>" 
-                                    style="width: 50px; height: 50px; object-fit: cover;" 
-                                    alt="Image du livre">
-                            <?php else: ?>
-                                <img src="../../uploads/default-image.jpg" width="100" alt="Image par défaut">
-                            <?php endif; ?>
-                        </td>
-                        <td>
-                            <a href="edit.php?id=<?php echo $livre['id']; ?>" class="btn btn-warning btn-sm">Modifier</a>
-                            <a href="delete.php?id=<?php echo $livre['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce livre ?');">Supprimer</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
 </html>

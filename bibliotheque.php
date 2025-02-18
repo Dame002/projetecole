@@ -116,6 +116,8 @@ try {
         <img src="IMG PAYER/app.jpg" alt="" />
         <img src="IMG PAYER/play.jpg" alt="" />
       </div>
+      <p>Modes de paiement sécurisées</p>
+          <img src="IMG PAYER/pay.png" alt="" />
     </div>
     <div class="copyright">
       <p>&copy; <span id="year"></span> Daarul Alam. Tous droits réservés. Fait par <a class="text-green" href="https://www.linkedin.com/in/dame-seck-9ba393293/" target="_blank" rel="noopener">DAME SECK</a></p>

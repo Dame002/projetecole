@@ -35,47 +35,70 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("L'URL fournie n'est pas valide.");
     }
 
-    // Récupérer l'ancienne image
+    // Récupérer l'ancienne image et l'ancien PDF
     $imagePath = $livre['image'] ?? '';
+    $pdfPath   = $livre['pdf'] ?? '';
 
-    // Vérifier si une nouvelle image a été envoyée
-    // Vérifier si une nouvelle image a été envoyée
+    // === Gestion de l'image ===
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-      $image = $_FILES['image'];
+        $image = $_FILES['image'];
+        $uploadDir = "uploads/";
+        // Vérifier le type et la taille de l'image
+        $validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (in_array($image['type'], $validTypes) && $image['size'] <= 2 * 1024 * 1024) {
+            $imageName = uniqid() . "_" . basename($image['name']);
+            $uploadPath = $uploadDir . $imageName;
 
-      // Définir le dossier d'upload
-      $uploadDir = "uploads/";
-      
-      // Vérifier le type et la taille de l'image
-      $validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-      if (in_array($image['type'], $validTypes) && $image['size'] <= 2 * 1024 * 1024) {
-          // Générer un nom unique
-          $imageName = uniqid() . "_" . basename($image['name']);
-          $uploadPath = $uploadDir . $imageName;
+            // Supprimer l'ancienne image si elle existe
+            if (!empty($imagePath) && file_exists($uploadDir . $imagePath)) {
+                unlink($uploadDir . $imagePath);
+            }
 
-          // Supprimer l'ancienne image si elle existe
-          if (!empty($imagePath) && file_exists($uploadDir . $imagePath)) {
-              unlink($uploadDir . $imagePath);
-          }
+            // Déplacer la nouvelle image et mettre à jour le chemin
+            if (move_uploaded_file($image['tmp_name'], $uploadPath)) {
+                $imagePath = $imageName;
+            } else {
+                die("Erreur lors du téléchargement de l'image.");
+            }
+        } else {
+            die("Image invalide. Vérifiez le format et la taille.");
+        }
+    }
 
-          // Déplacer la nouvelle image et mettre à jour le chemin
-          if (move_uploaded_file($image['tmp_name'], $uploadPath)) {
-              $imagePath = $imageName;
-          } else {
-              die("Erreur lors du téléchargement de l'image.");
-          }
-      } else {
-          die("Image invalide. Vérifiez le format et la taille.");
-      }
-  }
+    // === Gestion du PDF ===
+    if (isset($_FILES['pdf']) && $_FILES['pdf']['error'] == 0) {
+        $pdf = $_FILES['pdf'];
+        $uploadDir = "uploads/";
+        // On accepte uniquement le format PDF et limite à 10 Mo
+        if (in_array($pdf['type'], ['application/pdf']) && $pdf['size'] <= 10 * 1024 * 1024) {
+            $pdfName = uniqid() . "_" . basename($pdf['name']);
+            $uploadPathPdf = $uploadDir . $pdfName;
 
-    // Mise à jour du livre
-    $stmt = $pdo->prepare("UPDATE livres SET titre = :titre, description = :description, image = :image, url = :url, auteur_id = :auteur_id WHERE id = :id");
+            // Supprimer l'ancien PDF s'il existe
+            if (!empty($pdfPath) && file_exists($uploadDir . $pdfPath)) {
+                unlink($uploadDir . $pdfPath);
+            }
+
+            if (move_uploaded_file($pdf['tmp_name'], $uploadPathPdf)) {
+                $pdfPath = $pdfName;
+            } else {
+                die("Erreur lors du téléchargement du PDF.");
+            }
+        } else {
+            die("PDF invalide. Vérifiez le format et la taille.");
+        }
+    }
+
+    // Mise à jour du livre dans la base de données
+    $stmt = $pdo->prepare("UPDATE livres 
+                           SET titre = :titre, description = :description, image = :image, url = :url, auteur_id = :auteur_id, pdf = :pdf 
+                           WHERE id = :id");
     $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
     $stmt->bindParam(':description', $description, PDO::PARAM_STR);
     $stmt->bindParam(':image', $imagePath, PDO::PARAM_STR);
     $stmt->bindParam(':url', $url, PDO::PARAM_STR);
     $stmt->bindParam(':auteur_id', $auteur_id, PDO::PARAM_INT);
+    $stmt->bindParam(':pdf', $pdfPath, PDO::PARAM_STR);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
     if ($stmt->execute()) {
@@ -114,7 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a class="nav-link" href="../formations/list.php">Formations</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="list.php">livres</a>
+            <a class="nav-link" href="list.php">Livres</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../auteurs/list.php">Auteurs</a>
@@ -122,55 +145,81 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <li class="nav-item">
             <a class="nav-link" href="../create_admin.php">Administrateurs</a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-          </li> -->
         </ul>
       </div>
     </div>
-  </nav>
+</nav>
 
-<header>
+<header class="container mt-4">
     <h1>Modifier le Livre</h1>
 </header>
 
-<form action="edit.php?id=<?php echo $livre['id']; ?>" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="id" value="<?php echo $livre['id']; ?>">
+<div class="container mt-4">
+    <form action="edit.php?id=<?php echo $livre['id']; ?>" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<?php echo $livre['id']; ?>">
 
-    <!-- Auteur -->
-    <label for="auteur_id">Auteur :</label>
-    <select name="auteur_id" id="auteur_id" required>
-        <?php foreach ($auteurs as $auteur): ?>
-            <option value="<?php echo $auteur['id']; ?>" <?php echo ($auteur['id'] == $livre['auteur_id']) ? 'selected' : ''; ?>>
-                <?php echo htmlspecialchars($auteur['nom']); ?>
-            </option>
-        <?php endforeach; ?>
-    </select><br><br>
+        <!-- Auteur -->
+        <div class="mb-3">
+            <label for="auteur_id" class="form-label">Auteur :</label>
+            <select name="auteur_id" id="auteur_id" class="form-select" required>
+                <?php foreach ($auteurs as $auteur): ?>
+                    <option value="<?php echo $auteur['id']; ?>" <?php echo ($auteur['id'] == $livre['auteur_id']) ? 'selected' : ''; ?>>
+                        <?php echo htmlspecialchars($auteur['nom']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
-    <!-- Titre -->
-    <label for="titre">Titre :</label>
-    <input type="text" name="titre" id="titre" value="<?php echo htmlspecialchars($livre['titre']); ?>" required><br><br>
+        <!-- Titre -->
+        <div class="mb-3">
+            <label for="titre" class="form-label">Titre :</label>
+            <input type="text" name="titre" id="titre" class="form-control" value="<?php echo htmlspecialchars($livre['titre']); ?>" required>
+        </div>
 
-    <!-- Description -->
-    <label for="description">Description :</label>
-    <textarea name="description" id="description" required><?php echo htmlspecialchars($livre['description']); ?></textarea><br><br>
+        <!-- Description -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Description :</label>
+            <textarea name="description" id="description" class="form-control" required><?php echo htmlspecialchars($livre['description']); ?></textarea>
+        </div>
 
-    <!-- Image -->
-    <label for="image">Image :</label>
-    <input type="file" name="image" id="image"><br><br>
+        <!-- Image -->
+        <div class="mb-3">
+            <label for="image" class="form-label">Image :</label>
+            <input type="file" name="image" id="image" class="form-control">
+        </div>
 
-    <!-- Affichage de l'image actuelle si elle existe -->
-    <label>Image actuelle :</label><br>
-    <img src="uploads/<?php echo !empty($livre['image']) && file_exists("../../uploads/" . $livre['image']) ? htmlspecialchars($livre['image']) : 'default-image.jpg'; ?>" width="150" alt="Image du livre"><br><br>
+        <!-- Affichage de l'image actuelle si elle existe -->
+        <div class="mb-3">
+            <label class="form-label">Image actuelle :</label><br>
+            <img src="uploads/<?php echo (!empty($livre['image']) && file_exists("uploads/" . $livre['image'])) ? htmlspecialchars($livre['image']) : 'default-image.jpg'; ?>" width="150" alt="Image du livre">
+        </div>
 
-    <!-- URL -->
-    <label for="url">URL :</label>
-    <input type="text" name="url" id="url" value="<?php echo htmlspecialchars($livre['url']); ?>" required><br><br>
+        <!-- PDF -->
+        <div class="mb-3">
+            <label for="pdf" class="form-label">PDF :</label>
+            <input type="file" name="pdf" id="pdf" class="form-control">
+        </div>
 
-    <input type="submit" value="Modifier le Livre">
-</form>
+        <!-- Affichage du PDF actuel s'il existe -->
+        <?php if (!empty($livre['pdf']) && file_exists("uploads/" . $livre['pdf'])): ?>
+            <div class="mb-3">
+                <label class="form-label">PDF actuel :</label><br>
+                <a href="uploads/<?php echo htmlspecialchars($livre['pdf']); ?>" target="_blank" class="btn btn-info btn-sm">Voir le PDF</a>
+            </div>
+        <?php endif; ?>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <!-- URL -->
+        <div class="mb-3">
+            <label for="url" class="form-label">URL :</label>
+            <input type="text" name="url" id="url" class="form-control" value="<?php echo htmlspecialchars($livre['url']); ?>" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Modifier le Livre</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+        crossorigin="anonymous"></script>
 </body>
-
 </html>

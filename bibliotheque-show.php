@@ -53,6 +53,7 @@ if (isset($_GET['auteur_id'])) {
     <title>Œuvres de <?php echo htmlspecialchars($auteur['nom'] ?? 'Auteur non trouvé'); ?></title>
     <link rel="stylesheet" href="Style.css">
     <link rel="shortcut icon" href="Images/daroul-alam.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
@@ -88,18 +89,28 @@ if (isset($_GET['auteur_id'])) {
             <?php foreach ($livres as $livre): ?>
                 <div class="livre-card">
                     <img src="<?php echo $image_path . htmlspecialchars($livre['image']); ?>"
-                        alt="<?php echo htmlspecialchars($livre['titre']); ?>" >
-
+                        alt="<?php echo htmlspecialchars($livre['titre']); ?>">
                     <h3><?php echo !empty($livre['titre']) ? htmlspecialchars($livre['titre']) : 'Titre non disponible'; ?></h3>
                     <p><?php echo !empty($livre['description']) ? nl2br(htmlspecialchars($livre['description'])) : 'Description non disponible'; ?></p>
-                    <a href="admin/livres/uploads/<?php echo !empty($livre['pdf']) ? htmlspecialchars($livre['pdf']) : '#'; ?>"
-                        target="_blank">📥 Télécharger</a>
+                    <?php if (!empty($livre['pdf'])): ?>
+                        <a href="admin/livres/uploads/<?php echo htmlspecialchars($livre['pdf']); ?>" target="_blank">Visualiser le fichier</a>
+                    <?php else: ?>
+                        <span>Aucun PDF disponible</span>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
             <p>Aucun livre trouvé pour votre recherche.</p>
         <?php endif; ?>
+
     </section>
+     <!-- Bouton de retour après les cartes -->
+     <div style="text-align: center; margin-top: 20px;">
+        <a href="bibliotheque.php" class="back-button">
+            <span class="arrow">&#8592;</span> Retour à la bibliothèque
+        </a>
+    </div>
+    <br>
 
     <section id="newsletters" class="section-p1 section-m1">
         <div class="newstext">
@@ -148,6 +159,8 @@ if (isset($_GET['auteur_id'])) {
                 <img src="IMG PAYER/app.jpg" alt="App Store">
                 <img src="IMG PAYER/play.jpg" alt="Google Play">
             </div>
+            <p>Modes de paiement sécurisées</p>
+            <img src="IMG PAYER/pay.png" alt="" />
         </div>
         <div class="copyright">
             <p>
