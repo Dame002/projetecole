@@ -23,12 +23,14 @@
       <div>
         <ul id="navbar">
         <li><a href="index.php">Accueil</a></li>
-          <li><a href="bibliotheque.php">Bibliothèque</a></li>
           <!-- <li><a href="cours.php">Cours</a></li> -->
           <li><a href="formations.php">Formations</a></li>
+          <li><a href="bibliotheque.php">Bibliothèque</a></li>
           <li><a href="propos.php">A Propos</a></li>
-          <li><a  class="active" href="contact.php">Contact</a></li>
           <li><a href="blog.php">Blog</a></li>
+          <li><a  class="active" href="contact.php">Contact</a></li>
+          
+          
         </ul>
       </div>
       <div class="buttons">
@@ -93,7 +95,7 @@
         <div>
           <img class="rounded-circle" src="IMG PERS/ADJI 2.jpg" alt="" />
           <p>
-            <span>Ibrahima Lo</span> CEO, Directeur commercial<br />Numéro:
+            <span>**********</span> CEO, Directeur commercial<br />Numéro:
             +212 000000000 <br />
             E-mail: i.lo@daroul-alam.com
           </p>

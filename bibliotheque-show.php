@@ -62,11 +62,12 @@ if (isset($_GET['auteur_id'])) {
         <div>
             <ul id="navbar">
                 <li><a href="index.php">Accueil</a></li>
-                <li><a class="active" href="bibliotheque.php">Bibliothèque</a></li>
                 <li><a href="formations.php">Formations</a></li>
+                <li><a class="active" href="bibliotheque.php">Bibliothèque</a></li>
                 <li><a href="propos.php">À Propos</a></li>
-                <li><a href="contact.php">Contact</a></li>
                 <li><a href="blog.php">Blog</a></li>
+                <li><a href="contact.php">Contact</a></li>
+               
             </ul>
         </div>
         <div class="buttons">
@@ -107,7 +108,7 @@ if (isset($_GET['auteur_id'])) {
      <!-- Bouton de retour après les cartes -->
      <div style="text-align: center; margin-top: 20px;">
         <a href="bibliotheque.php" class="back-button">
-            <span class="arrow">&#8592;</span> Retour à la bibliothèque
+            <span class="arrow">&#8592;</span> Retour à la liste des auteurs
         </a>
     </div>
     <br>

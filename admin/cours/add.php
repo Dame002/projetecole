@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupérer les données du formulaire
     $titre = $_POST['titre'];
     $description = $_POST['description'];
-    $url = $_POST['url'];
+    $url = $_POST['url']; // Récupère l'URL du formulaire
     $formation_id = $_POST['formation_id'];
 
     // Gestion de l'image
@@ -57,12 +57,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':titre', $titre);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':image', $imageName); // Enregistrer le nom de l'image dans la base de données
-        $stmt->bindParam(':url', $url);
+        $stmt->bindParam(':url', $url); // Insérer l'URL dans la base de données
         $stmt->bindParam(':formation_id', $formation_id, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             echo "Cours ajouté avec succès !";
-            header("Location: list.php?success=Cours ajoute avec succès.");
+            // Rediriger vers la page de la liste des cours ou afficher un message de confirmation
+            header("Location: list.php?success=Cours ajouté avec succès. <br>Vous pouvez accéder au cours via ce lien: <a href='$url'>$url</a>");
+            exit(); // Assurez-vous d'utiliser exit() pour stopper le script après la redirection
         } else {
             echo "Erreur lors de l'ajout du cours.";
         }
@@ -86,36 +88,33 @@ $formations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="../index.php">Daarul Alam</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="list.php">Cours</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../formations/list.php">Formations</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../livres/list.php">livres</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../auteurs/list.php">Auteurs</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../create_admin.php">Administrateurs</a>
-          </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-          </li> -->
-        </ul>
-      </div>
-    </div>
-  </nav>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../index.php">Daarul Alam</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="list.php">Cours</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../formations/list.php">Formations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../livres/list.php">Livres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../auteurs/list.php">Auteurs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../create_admin.php">Administrateurs</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <header>
         <h1>Ajouter un Cours</h1>
@@ -129,6 +128,7 @@ $formations = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <option value="<?php echo $formation['id']; ?>"><?php echo htmlspecialchars($formation['titre']); ?></option>
             <?php endforeach; ?>
         </select>
+
         <label for="titre">Titre :</label>
         <input type="text" name="titre" id="titre" required><br><br>
 
@@ -140,8 +140,6 @@ $formations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <label for="url">URL :</label>
         <input type="text" name="url" id="url" required><br><br>
-
-        <br><br>
 
         <input type="submit" value="Ajouter le Cours">
     </form>

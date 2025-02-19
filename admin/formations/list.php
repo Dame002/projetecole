@@ -37,9 +37,7 @@ try {
         <ul class="navbar-nav">
           <li class="nav-item"><a class="nav-link active" aria-current="page" href="../cours/list.php">Cours</a></li>
           <li class="nav-item"><a class="nav-link" href="list.php">Formations</a></li>
-          <li class="nav-item">
-            <a class="nav-link" href="../livres/list.php">livres</a>
-          </li>
+          <li class="nav-item"><a class="nav-link" href="../livres/list.php">Livres</a></li>
           <li class="nav-item"><a class="nav-link" href="../auteurs/list.php">Auteurs</a></li>
           <li class="nav-item"><a class="nav-link" href="../create_admin.php">Administrateurs</a></li>
         </ul>
@@ -65,6 +63,7 @@ try {
     <table class="table table-striped">
       <thead class="table-dark">
         <tr>
+          <th>Image</th>
           <th>Titre</th>
           <th>Description</th>
           <th>Actions</th>
@@ -73,6 +72,13 @@ try {
       <tbody>
         <?php foreach ($formations as $formation): ?>
           <tr>
+            <td>
+              <?php if (!empty($formation['image'])): ?>
+                <img src="../../uploads/<?php echo htmlspecialchars($formation['image']); ?>" alt="Image de la formation" width="80" height="50">
+              <?php else: ?>
+                <img src="../../assets/placeholder.png" alt="Placeholder" width="80" height="50">
+              <?php endif; ?>
+            </td>
             <td><?php echo htmlspecialchars($formation['titre']); ?></td>
             <td><?php echo substr(htmlspecialchars($formation['description']), 0, 50) . '...'; ?></td>
             <td>

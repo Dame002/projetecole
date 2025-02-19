@@ -21,12 +21,13 @@
     <div>
       <ul id="navbar">
       <li><a  href="index.php">Accueil</a></li>
-          <li><a href="bibliotheque.php">Bibliothèque</a></li>
           <!-- <li><a href="cours.php">Cours</a></li> -->
           <li><a href="formations.php">Formations</a></li>
+          <li><a href="bibliotheque.php">Bibliothèque</a></li>
           <li><a class="active" href="propos.php">A Propos</a></li>
-          <li><a href="contact.php">Contact</a></li>
           <li><a href="blog.php">Blog</a></li>
+          <li><a href="contact.php">Contact</a></li>
+         
       </ul>
     </div>
     <div class="buttons">
