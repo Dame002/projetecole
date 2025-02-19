@@ -171,7 +171,7 @@ $auteurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <label for="pdf" class="form-label">PDF</label>
                 <input type="file" class="form-control" id="pdf" name="pdf">
             </div>
-            <button type="submit" class="btn btn-primary">Ajouter le livre</button>
+            <button type="submit" class="btn btn-primary">Ajouter le livre </button>
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

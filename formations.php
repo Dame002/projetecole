@@ -72,7 +72,7 @@ try {
               <h2><?php echo htmlspecialchars($formation['titre']); ?></h2>
               <p class="description"> <?php echo htmlspecialchars($formation['description']); ?></p>
               <a href="formation_details.php?formation_id=<?php echo $formation['id']; ?>">
-                <button class="btn">Voir les cours de cette formation</button>
+                <button class="voir-cours-btn">Voir les cours de cette formation</button>
               </a>
 
 

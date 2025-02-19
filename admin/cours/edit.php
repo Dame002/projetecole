@@ -56,10 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Ici, tu peux insérer ou mettre à jour la base de données avec $imagePath
-
-
-
     // Mise à jour du cours
     $stmt = $pdo->prepare("UPDATE cours SET titre = :titre, description = :description, image = :image, url = :url, formation_id = :formation_id WHERE id = :id");
     $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
@@ -87,73 +83,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier le Cours</title>
     <link rel="stylesheet" href="../../assets/admin.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="../index.php">Daarul Alam</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="list.php">Cours</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../formations/list.php">Formations</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../livres/list.php">livres</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../auteurs/list.php">Auteurs</a>
-          </li>
-          <li cla
-          <li class="nav-item">
-            <a class="nav-link" href="../create_admin.php">Administrateurs</a>
-          </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-          </li> -->
+          <li class="nav-item"><a class="nav-link active" href="list.php">Cours</a></li>
+          <li class="nav-item"><a class="nav-link" href="../formations/list.php">Formations</a></li>
+          <li class="nav-item"><a class="nav-link" href="../livres/list.php">Livres</a></li>
+          <li class="nav-item"><a class="nav-link" href="../auteurs/list.php">Auteurs</a></li>
+          <li class="nav-item"><a class="nav-link" href="../create_admin.php">Administrateurs</a></li>
         </ul>
       </div>
     </div>
-  </nav>
-    <header>
-        <h1>Modifier le Cours</h1>
-    </header>
+</nav>
 
-    <form action="edit.php?id=<?php echo $cour['id']; ?>" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?php echo $cour['id']; ?>">
+<header>
+    <h1>Modifier le Cours</h1>
+</header>
 
-        <label for="titre">Titre :</label>
-        <input type="text" name="titre" id="titre" value="<?php echo htmlspecialchars($cour['titre']); ?>" required><br><br>
+<form action="edit.php?id=<?php echo $cour['id']; ?>" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="<?php echo $cour['id']; ?>">
 
-        <label for="description">Description :</label>
-        <textarea name="description" id="description" required><?php echo htmlspecialchars($cour['description']); ?></textarea><br><br>
+    <label for="titre">Titre :</label>
+    <input type="text" name="titre" id="titre" value="<?php echo htmlspecialchars($cour['titre']); ?>" required><br><br>
 
-        <label for="image">Image :</label>
-        <input type="file" name="image" id="image"><br><br>
-        <img src="../../uploads/<?php echo htmlspecialchars($cour['image']); ?>" width="150" alt="Image du cours"><br><br>
+    <label for="description">Description :</label>
+    <textarea name="description" id="description" required><?php echo htmlspecialchars($cour['description']); ?></textarea><br><br>
 
-        <label for="url">URL :</label>
-        <input type="text" name="url" id="url" value="<?php echo htmlspecialchars($cour['url']); ?>" required><br><br>
+    <label for="image">Image :</label>
+    <input type="file" name="image" id="image"><br><br>
+    <img src="../../uploads/<?php echo htmlspecialchars($cour['image']); ?>" width="150" alt="Image du cours"><br><br>
 
-        <label for="formation_id">Formation :</label>
-        <select name="formation_id" id="formation_id" required>
-            <?php foreach ($formations as $formation): ?>
-                <option value="<?php echo $formation['id']; ?>" <?php if ($formation['id'] == $cour['formation_id']) echo 'selected'; ?>>
-                    <?php echo htmlspecialchars($formation['titre']); ?>
-                </option>
-            <?php endforeach; ?>
-        </select><br><br>
+    <label for="url">URL :</label>
+    <input type="text" name="url" id="url" value="<?php echo htmlspecialchars($cour['url']); ?>" required><br><br>
 
-        <input type="submit" value="Modifier le Cours">
-    </form>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <label for="formation_id">Formation :</label>
+    <select name="formation_id" id="formation_id" required>
+        <?php foreach ($formations as $formation): ?>
+            <option value="<?php echo $formation['id']; ?>" <?php if ($formation['id'] == $cour['formation_id']) echo 'selected'; ?>>
+                <?php echo htmlspecialchars($formation['titre']); ?>
+            </option>
+        <?php endforeach; ?>
+    </select><br><br>
+
+    <input type="submit" value="Modifier le Cours" class="btn btn-primary">
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

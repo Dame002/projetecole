@@ -49,7 +49,7 @@
         <div class="image grid-item-1">
           <img src="IMG GRID/quran3.jpg" alt="Main Image" />
           <div class="overlay">
-            <h3>Apprendre le Coran</h3>
+            <h3> Apprendre le Coran</h3>
             <p>
               Dans cette rubrique, découvrez les bases de la lecture et de la
               compréhension du Coran. <br />
@@ -58,7 +58,7 @@
             </p>
             
             <button class="btn">
-              <a href="#">Voir formation</a>
+              <a href="formations.php">Voir formation</a>
             </button>
           </div>
         </div>
@@ -72,7 +72,7 @@
               débutants et révisions.
             </p>
             <button class="btn">
-              <a chref="#">Voir Formation</a>
+              <a chref="formations.php">Voir Formation</a>
             </button>
           </div>
         </div>
@@ -86,7 +86,7 @@
               comprenez leur impact sur la vie spirituelle et quotidienne.
             </p>
             <button class="btn">
-              <a href="#">Voir Formation</a>
+              <a href="formations.php">Voir Formation</a>
             </button>
           </div>
         </div>

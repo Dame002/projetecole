@@ -14,11 +14,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
         // Vérification du type de fichier
-        $allowed_types = ['jpg', 'jpeg', 'png', 'gif'];
+        $allowed_types = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
         if (in_array($imageFileType, $allowed_types)) {
             move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
         } else {
-            echo "Seuls les fichiers JPG, JPEG, PNG et GIF sont autorisés.";
+            echo "Seuls les fichiers JPG, JPEG, PNG, GIF et webp sont autorisés.";
             exit();
         }
     }
@@ -54,6 +54,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand" href="../index.php">Daarul Alam</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link active" href="list.php">Cours</a></li>
+                <li class="nav-item"><a class="nav-link" href="../formations/list.php">Formations</a></li>
+                <li class="nav-item"><a class="nav-link" href="../livres/list.php">Livres</a></li>
+                <li class="nav-item"><a class="nav-link" href="../auteurs/list.php">Auteurs</a></li>
+                <li class="nav-item"><a class="nav-link" href="../create_admin.php">Administrateurs</a></li>
+            </ul>
+        </div>
     </div>
 </nav>
 
@@ -61,17 +73,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h1>Ajouter une Formation</h1>
 </header>
 
-<form action="add.php" method="POST" enctype="multipart/form-data">
-    <label for="titre">Titre :</label>
-    <input type="text" name="titre" id="titre" required><br><br>
+<form action="add.php" method="POST" enctype="multipart/form-data" id="formationForm">
+    <div class="mb-3">
+        <label for="titre" class="form-label">Titre :</label>
+        <input type="text" name="titre" id="titre" class="form-control" required>
+    </div>
 
-    <label for="description">Description :</label>
-    <textarea name="description" id="description" required></textarea><br><br>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description :</label>
+        <textarea name="description" id="description" class="form-control" required></textarea>
+    </div>
 
-    <label for="image">Image :</label>
-    <input type="file" name="image" id="image" accept="image/*"><br><br>
+    <div class="mb-3">
+        <label for="image" class="form-label">Image :</label>
+        <input type="file" name="image" id="image" class="form-control" accept="image/*">
+    </div>
 
-    <input type="submit" value="Ajouter la Formation">
+    <div class="mb-3">
+        <input type="submit" value="Ajouter la Formation" class="btn btn-primary">
+    </div>
 </form>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

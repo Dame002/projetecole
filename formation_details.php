@@ -43,7 +43,8 @@ if (isset($_GET['formation_id'])) {
         die("Erreur de connexion à la base de données : " . $e->getMessage());
     }
 } else { 
-    die("Aucun ID de formation spécifié.");
+    header('Location: formations.php');
+    exit();
 }
 ?>
 
@@ -106,7 +107,8 @@ if (isset($_GET['formation_id'])) {
                     <div class="cours-details">
                         <h3 class="cours-title"><?php echo htmlspecialchars($cours_item['titre']); ?></h3>
                         <p class="cours-description"><?php echo nl2br(htmlspecialchars($cours_item['description'])); ?></p>
-                        <a href="cours_detail.php?id=<?php echo $cours_item['id']; ?>" class="voir-cours-btn">Voir le cours</a>
+                        <a href="<?php echo htmlspecialchars($cours_item['url']); ?>" class="voir-cours-btn" target="_blank">Voir le cours</a>
+
                     </div>
                 </div>
             <?php endforeach; ?>
