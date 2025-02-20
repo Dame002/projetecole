@@ -53,6 +53,7 @@ if (isset($_GET["success"])) {
           <li class="nav-item">
             <a class="nav-link" href="../auteurs/list.php">Auteurs</a>
           </li>
+          <li class="nav-item"><a class="nav-link" href="../Messages/liste_contact.php">Messages</a></li>
           <li class="nav-item">
             <a class="nav-link" href="../create_admin.php">Administrateur</a>
           </li>

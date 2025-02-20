@@ -82,6 +82,7 @@ $formations = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <li class="nav-item"><a class="nav-link" href="../formations/list.php">Formations</a></li>
                     <li class="nav-item"><a class="nav-link" href="../livres/list.php">Livres</a></li>
                     <li class="nav-item"><a class="nav-link" href="../auteurs/list.php">Auteurs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../Messages/liste_contact.php">Messages</a></li>
                     <li class="nav-item"><a class="nav-link" href="../create_admin.php">Administrateurs</a></li>
                 </ul>
             </div>

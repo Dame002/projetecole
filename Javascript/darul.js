@@ -18,3 +18,18 @@ prevBtn.addEventListener("click", () => {
     wrapper.style.transform = `translateX(-${scrollAmount}px)`;
   }
 });
+// Vérifie si le paramètre "success" existe dans l'URL
+window.onload = function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const successMessage = urlParams.get('success');
+
+  if (successMessage) {
+    // Affiche une alerte avec SweetAlert
+    Swal.fire({
+      icon: 'success',
+      title: 'Succès',
+      text: successMessage,
+      confirmButtonText: 'OK'
+    });
+  }
+};

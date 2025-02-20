@@ -108,6 +108,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <a class="nav-link" href="list.php">Auteurs</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="../Messages/liste_contact.php">Messages</a>
+                    </li>
+                    <li class="nav-item">
             <a class="nav-link" href="../create_admin.php">Administrateurs</a>
           </li>
           <!-- <li class="nav-item">

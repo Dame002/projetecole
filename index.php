@@ -31,6 +31,7 @@
           <li><a href="contact.php">Contact</a></li>
         
         </ul>
+        
       </div>
       <div class="buttons">
        <a href="./login/index.php"> <button class="sign-up">Se connecter</button> </a>

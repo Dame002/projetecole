@@ -612,6 +612,7 @@ header {
   font-size: 1.2em;
   text-align: center;
   margin-top: 20px;
+  color:blue ;
   margin-bottom: 10px; /* Un peu d'espace après le titre */
 }
 
@@ -1222,3 +1223,4 @@ footer .copyright {
   width: 100%;
   text-align: center;
 }
+
