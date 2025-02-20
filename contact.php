@@ -17,10 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $stmt->bindParam(':message', $message);
 
   if ($stmt->execute()) {
-    header("Location: contact.php?success=Message envoye avec succès");
+    header("Location: contact.php?success=Message envoyè avec succès");
     exit();
   } else {
-    echo "Erreur lors de  l'envoi.";
+    echo "Erreur lors de l'envoi.";
   }
 }
 
@@ -54,7 +54,7 @@ if (isset($_GET["success"])) {
     href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
   <!-- Inclure SweetAlert -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 
 
 </head>
@@ -226,24 +226,17 @@ if (isset($_GET["success"])) {
         <img src="IMG PAYER/play.jpg" alt="" />
       </div>
       <p>Modes de paiement sécurisées</p>
-      <img src="IMG PAYER/pay.png" alt="" />
+          <img src="IMG PAYER/pay.png" alt="" />
     </div>
     <div class="copyright">
-      <p>
-        &copy; <span id="year"></span> Daarul Alam. Tous droits réservés. Fait par
-        <a
-          class="text-green"
-          href="https://www.linkedin.com/in/dame-seck-9ba393293/"
-          target="_blank"
-          rel="noopener">DAME SECK</a>
-        <script>
-          document.getElementById("year").textContent = new Date().getFullYear();
-        </script>
-
+      <p>&copy; <span id="year"></span> Daarul Alam. Tous droits réservés. Fait par <a class="text-green" href="https://www.linkedin.com/in/dame-seck-9ba393293/" target="_blank" rel="noopener">DAME SECK</a></p>
+      <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+      </script>
     </div>
   </footer>
   <script src="Javascript/darul.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
 
 </body>
 
