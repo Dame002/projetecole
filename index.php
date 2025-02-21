@@ -58,9 +58,9 @@
               connexion spirituelle.
             </p>
             
-            <button class="btn">
+            <!-- <button class="btn">
               <a href="formations.php">Voir formation</a>
-            </button>
+            </button> -->
           </div>
         </div>
         <div class="image grid-item-2">
@@ -72,9 +72,9 @@
               essentiels pour accomplir la prière correctement. Un guide pour
               débutants et révisions.
             </p>
-            <button class="btn">
+            <!-- <button class="btn">
               <a chref="formations.php">Voir Formation</a>
-            </button>
+            </button> -->
           </div>
         </div>
         <div class="image grid-item-3">
@@ -86,9 +86,9 @@
               actions et paroles du Prophète (paix et bénédictions sur lui), et
               comprenez leur impact sur la vie spirituelle et quotidienne.
             </p>
-            <button class="btn">
+            <!-- <button class="btn">
               <a href="formations.php">Voir Formation</a>
-            </button>
+            </button> -->
           </div>
         </div>
       </div>

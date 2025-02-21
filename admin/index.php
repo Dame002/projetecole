@@ -56,10 +56,10 @@ try {
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="./cours/add.php">Cours</a></li>
-          <li class="nav-item"><a class="nav-link" href="formations/add.php">Formations</a></li>
-          <li class="nav-item"><a class="nav-link" href="list.php">Livres</a></li>
-          <li class="nav-item"><a class="nav-link" href="./auteurs/add.php">Auteurs</a></li>
+          <li class="nav-item"><a class="nav-link" href="./cours/list.php">Cours</a></li>
+          <li class="nav-item"><a class="nav-link" href="./formations/list.php">Formations</a></li>
+          <li class="nav-item"><a class="nav-link" href="./livres/list.php">Livres</a></li>
+          <li class="nav-item"><a class="nav-link" href="./auteurs/list.php">Auteurs</a></li>
           <li class="nav-item"><a class="nav-link" href="./Messages/liste_contact.php">Messages</a></li>
           <li class="nav-item"><a class="nav-link" href="create_admin.php">Administrateurs</a></li>
         </ul>
@@ -115,7 +115,7 @@ try {
       <div class="circle">
         <i class="fas fa-users"></i>
         <?php echo $countUtilisateurs; ?>
-        <div class="circle-title">Utilisateurs</div>
+        <div class="circle-title">Administrateurs</div>
       </div>
     </div>
   </div>

@@ -35,8 +35,8 @@ try {
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link active" href="list.php">Cours</a></li>
-                <li class="nav-item"><a class="nav-link active" href="../formations/list.php">Formations</a></li>
+        <li class="nav-item"><a class="nav-link active" href="../cours/list.php">Cours</a></li>
+                <li class="nav-item"><a class="nav-link active" href="list.php">Formations</a></li>
                 <li class="nav-item"><a class="nav-link" href="../livres/list.php">Livres</a></li>
                 <li class="nav-item"><a class="nav-link" href="../auteurs/list.php">Auteurs</a></li>
                 <li class="nav-item"><a  class="nav-link" href="../Messages/liste_contact.php">Messages</a></li>
