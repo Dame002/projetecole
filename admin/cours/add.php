@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':formation_id', $formation_id, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
-            header("Location: list.php?success=Cours ajouté avec succès. <br>Accédez au cours ici : <a href='$url'>$url</a>");
+            header("Location: list.php?success=Cours ajouté avec succès.");
             exit();
         } else {
             echo "Erreur lors de l'ajout du cours.";
